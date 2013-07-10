@@ -5,6 +5,7 @@
 var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
+  , rpi = require('./routes/rpi')
   , http = require('http')
   , https = require('https')
   , path = require('path')
@@ -20,7 +21,7 @@ var options = {
 //pfx: fs.readFileSync(__dirname + '/keys/test.pfx'),
 
   // SPDY-specific options
-  windowSize: 1024, // Server's window size
+  windowSize: 1024 // Server's window size
 };
 
 var db = nano.db.use('test');
@@ -45,20 +46,22 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/users', user.list);
-
+app.get('/rpi', rpi.index);
+app.get('/rpi/test', rpi.test);
+//app.get('/testing', test.test);
+//Testing out the template and MVC system.
 app.get('/testing', function(req, res){
   res.render('index.jade', { title: 'Testing' });
 });
-
+//About page FIND OUT HOW TO SERVE STATIcS
 app.get('/about', function(req, res){
-  res.render('about.jade');
+  res.render('about.jade', { title: 'About' });
 });
 
 //var server = spdy.createServer(app);
 
 //server.listen('port');
 
-var server = spdy.createServer(options, app)
-
-server.listen(3000);
+var spdyserver = spdy.createServer(options, app);
+spdyserver.listen(3000);
 console.log('Listening on port 3000');
