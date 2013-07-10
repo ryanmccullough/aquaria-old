@@ -6,6 +6,7 @@ var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
   , rpi = require('./routes/rpi')
+  , graph = require('./routes/graph')
   , http = require('http')
   , https = require('https')
   , path = require('path')
@@ -39,15 +40,22 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.configure('development', function(){
+  app.use(express.errorHandler());
+  app.locals.pretty = true;
+});
+
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
 app.get('/', routes.index);
+app.get('/test', routes.test);
 app.get('/users', user.list);
 app.get('/rpi', rpi.index);
 app.get('/rpi/test', rpi.test);
+app.get('/graph', graph.index);
 //app.get('/testing', test.test);
 //Testing out the template and MVC system.
 app.get('/testing', function(req, res){
