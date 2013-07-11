@@ -71,5 +71,5 @@ app.get('/about', function(req, res){
 //server.listen('port');
 
 var spdyserver = spdy.createServer(options, app);
-spdyserver.listen(3000);
+spdyserver.listen(3000, "::");
 console.log('Listening on port 3000');
