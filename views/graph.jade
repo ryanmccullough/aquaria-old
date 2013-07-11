@@ -32,7 +32,6 @@ block content
     height = 500 - margin.top - margin.bottom;
 
     var parseDate = d3.time.format("%m/%d/%Y %H:%M:%S").parse;
-    var parseTime = d3.time.format("%H:%M:%S").parse;
 
     var x = d3.time.scale()
         .range([0, width]);
@@ -63,7 +62,6 @@ block content
         data.forEach(function(d) {
         d.datetime = parseDate(d.datetime);
         d.temp = +d.temp;
-        d.time = parseTime(d.time);
       });
 
       x.domain(d3.extent(data, function(d) { return d.datetime; }));
