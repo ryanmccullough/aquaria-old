@@ -16,8 +16,8 @@ var express = require('express')
 
 
 var options = {
-  key: fs.readFileSync(__dirname + '/keys/privatekey.pem'),
-  cert: fs.readFileSync(__dirname + '/keys/ca.pem'),
+  key: fs.readFileSync(__dirname + '/keys/sample.privatekey.pem'),
+  cert: fs.readFileSync(__dirname + '/keys/sample.ca.pem'),
 //ca: fs.readFileSync(__dirname + '/keys/cert.pem'),
 //pfx: fs.readFileSync(__dirname + '/keys/test.pfx'),
 
