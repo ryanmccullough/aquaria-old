@@ -23,11 +23,6 @@ append head
       stroke: steelblue;
       stroke-width: 1.5px;
     }
-    
-    #chart {
-      stroke: steelblue;
-      stroke-width: 1px;
-    }
 
 block content
   p CONTENT ON GRAPH.JADE
@@ -60,7 +55,6 @@ block content
     var svg = d3.select("body").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
-        .attr("id", "chart")
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
