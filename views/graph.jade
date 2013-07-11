@@ -50,7 +50,7 @@ block content
 
     var line = d3.svg.line()
         .x(function(d) { return x(d.datetime); })
-        .y(function(d) { return y(d.close); });
+        .y(function(d) { return y(d.temp); });
 
     var svg = d3.select("body").append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -62,12 +62,12 @@ block content
         data.sort(function(a,b) {return d3.ascending(a.datetime, b.datetime);});
         data.forEach(function(d) {
         d.datetime = parseDate(d.datetime);
-        d.close = +d.close;
+        d.temp = +d.temp;
         d.time = parseTime(d.time);
       });
 
       x.domain(d3.extent(data, function(d) { return d.datetime; }));
-      y.domain(d3.extent(data, function(d) { return d.close; }));
+      y.domain(d3.extent(data, function(d) { return d.temp; }));
 
       svg.append("g")
           .attr("class", "x axis")
