@@ -58,7 +58,7 @@ block content
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     d3.csv("/python/sample.data.csv", function(error, data) {
-        data.sort(function(a,b) {return d3.ascending(a.datetime, b.datetime);});
+        //data.sort(function(a,b) {return d3.ascending(a.datetime, b.datetime);});
         data.forEach(function(d) {
         d.datetime = parseDate(d.datetime);
         d.temp = +d.temp;
