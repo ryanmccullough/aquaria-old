@@ -17,12 +17,12 @@ var express = require('express')
 
 var options = {
   key: fs.readFileSync(__dirname + '/keys/sample.privatekey.pem'),
-  cert: fs.readFileSync(__dirname + '/keys/sample.ca.pem'),
+  cert: fs.readFileSync(__dirname + '/keys/sample.ca.pem')
 //ca: fs.readFileSync(__dirname + '/keys/cert.pem'),
 //pfx: fs.readFileSync(__dirname + '/keys/test.pfx'),
 
   // SPDY-specific options
-  windowSize: 1024 // Server's window size
+  //windowSize: 1024 // Server's window size
 };
 
 var db = nano.db.use('test');
@@ -52,19 +52,11 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/test', routes.test);
+app.get('/about', routes.test);
 app.get('/users', user.list);
 app.get('/rpi', rpi.index);
 app.get('/rpi/test', rpi.test);
 app.get('/graph', graph.index);
-//app.get('/testing', test.test);
-//Testing out the template and MVC system.
-app.get('/testing', function(req, res){
-  res.render('index.jade', { title: 'Testing' });
-});
-//About page FIND OUT HOW TO SERVE STATIcS
-app.get('/about', function(req, res){
-  res.render('about.jade', { title: 'About' });
-});
 
 //var server = spdy.createServer(app);
 
