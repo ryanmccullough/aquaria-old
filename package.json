@@ -10,6 +10,6 @@
     "jade": "*",
     "nano": "*",
     "spdy": "*",
-    "pi-gpio: "*"
+    "pi-gpio": "*"
   }
 }

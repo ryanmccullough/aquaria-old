@@ -2,17 +2,18 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , routes = require('./routes')
-  , user = require('./routes/user')
-  , rpi = require('./routes/rpi')
-  , graph = require('./routes/graph')
-  , http = require('http')
-  , https = require('https')
-  , path = require('path')
-  , spdy = require('spdy')
-  , fs = require('fs')
-  , nano = require('nano')('http://localhost:5984');
+var express = require('express'),
+  routes = require('./routes'),
+  user = require('./routes/user'),
+  rpi = require('./routes/rpi'),
+  graph = require('./routes/graph'),
+  http = require('http'),
+  https = require('https'),
+  path = require('path'),
+  spdy = require('spdy'),
+  fs = require('fs'),
+  gpio = require('pi-gpio'),
+  nano = require('nano')('http://localhost:5984');
 
 
 var options = {
