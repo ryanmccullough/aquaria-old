@@ -7,12 +7,13 @@ var express = require('express'),
   user = require('./routes/user'),
   rpi = require('./routes/rpi'),
   graph = require('./routes/graph'),
+  database = require('./routes/database'),
   http = require('http'),
   https = require('https'),
   path = require('path'),
   spdy = require('spdy'),
   fs = require('fs'),
-  gpio = require('pi-gpio'),
+  //gpio = require('pi-gpio'),
   nano = require('nano')('http://localhost:5984');
 
 
@@ -58,6 +59,7 @@ app.get('/users', user.list);
 app.get('/rpi', rpi.index);
 app.get('/rpi/test', rpi.test);
 app.get('/graph', graph.index);
+app.get('/database', database.index);
 
 //var server = spdy.createServer(app);
 
