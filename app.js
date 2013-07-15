@@ -54,7 +54,35 @@ if ('development' == app.get('env')) {
 }
 
 // set up temp log
+// Read current temperature from sensor
+function readTemp(callback){
+    fs.readFile('/sys/bus/w1/devices/28-000004a82865/w1_slave', function(err, buffer)
+    {
+        if (err){
+            console.error(err);
+            process.exit(1);
+        }
 
+        // Read data from file (using fast node ASCII encoding).
+        var data = buffer.toString('ascii').split(" "); // Split by space
+
+        // Extract temperature from string and divide by 1000 to give celsius
+        var temp  = parseFloat(data[data.length-1].split("=")[1])/1000.0;
+
+        // Round to one decimal place
+        temp = Math.round(temp * 10) / 10;
+
+        // Add date/time to temperature
+        //var data = {
+        //    temperature_record:[{
+        //       unix_time: Date.now(),
+        //        celsius: temp
+        //    }]};
+
+        // Execute call back with data
+        callback(String(temp));
+    });
+}
 
 // setup routes
 app.get('/', routes.index);
@@ -65,7 +93,7 @@ app.get('/rpi', rpi.index);
 app.get('/rpi/test', rpi.test);
 app.get('/graph', graph.index);
 app.get('/database', database.index);
-app.get('/temp', temperature.index);
+app.get('/temp', readTemp(function(data){}), temperature.index);
 
 var spdyserver = spdy.createServer(options, app);
 spdyserver.listen(3000, "::");
