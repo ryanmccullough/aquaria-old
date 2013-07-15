@@ -35,11 +35,9 @@ function readTemp(callback){
         //    }]};
 
         // Execute call back with data
-        callback(data.toString('ascii'));
+        callback(temp.toString('ascii'));
     });
-};
-
-
+}
 // server.js - NodeJS server for the PiThermServer project.
 
 /*
