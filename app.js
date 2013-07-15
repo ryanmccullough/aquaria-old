@@ -67,10 +67,6 @@ app.get('/graph', graph.index);
 app.get('/database', database.index);
 app.get('/temp', temperature.index);
 
-//var server = spdy.createServer(app);
-
-//server.listen('port');
-
 var spdyserver = spdy.createServer(options, app);
 spdyserver.listen(3000, "::");
 console.log('Listening on port 3000');

@@ -2,10 +2,7 @@ var fs = require('fs');
 var sys = require('sys');
 var http = require('http');
 
-var temp = readTemp(function(data){
-    response.writeHead(200, { "Content-type": "application/json" });
-    response.end(JSON.stringify(data), "ascii");
-});
+var temp = readTemp(data);
 
 exports.index = function(req, res){
     res.render('index', { temperature: 'test' });
