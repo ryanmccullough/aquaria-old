@@ -9,7 +9,7 @@ var http = require('http');
 
 exports.index = function(req, res){
     readTemp(function(data){
-        res.render('temperature', { title: 'Temperature', temp:data });
+        res.render('temperature', { title: 'Temperature', data: temp });
     });
 };
 
@@ -23,13 +23,15 @@ function readTemp(callback){
         }
 
         // Read data from file (using fast node ASCII encoding).
-        var data = buffer.toString('ascii').split(" "); // Split by space
+        var rawdata = buffer.toString('ascii').split(" "); // Split by space
 
         // Extract temperature from string and divide by 1000 to give celsius
-        var temp  = parseFloat(data[data.length-1].split("=")[1])/1000.0;
+        var temp  = parseFloat(rawdata[rawdata.length-1].split("=")[1])/1000.0;
 
         // Round to one decimal place
         temp = Math.round(temp * 10) / 10;
+
+        var data = {record:[{time: Date.now(), temp: temp}]};
 
         // Add date/time to temperature
         //var data = {
@@ -37,9 +39,9 @@ function readTemp(callback){
         //       unix_time: Date.now(),
         //        celsius: temp
         //    }]};
-        console.log(temp + Date.now());
+        console.log(data);
         // Execute call back with data
-        callback(temp + Date.now());
+        callback(data);
     });
 }
 // server.js - NodeJS server for the PiThermServer project.

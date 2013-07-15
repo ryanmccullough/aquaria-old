@@ -93,7 +93,7 @@ function logTemp(interval){
 // Write a single temperature record in JSON format to database table.
 function insertTemp(data){
     // data is a javascript object
-    db.insert({ temp: data }, function(err, body) {
+    db.insert(data, function(err, body) {
         if (!err)
             console.log(body);
     });
