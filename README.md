@@ -18,7 +18,7 @@ NPM:
 * Nano CouchDB Driver
 * Pi-GPIO
 * Jade Template Engine
-* Forever (_Optional_)
+* Forever ( _Optional_ )
 
 Install/Setup
 -------------
