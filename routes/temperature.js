@@ -28,14 +28,14 @@ function readTemp(callback){
         temp = Math.round(temp * 10) / 10;
 
         // Add date/time to temperature
-        var data = {
-            temperature_record:[{
-                unix_time: Date.now(),
-                celsius: temp
-            }]};
+        //var data = {
+        //    temperature_record:[{
+        //       unix_time: Date.now(),
+        //        celsius: temp
+        //    }]};
 
         // Execute call back with data
-        callback(data);
+        callback(data.toString('ascii'));
     });
 };
 
