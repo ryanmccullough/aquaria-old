@@ -2,7 +2,9 @@ var fs = require('fs');
 var sys = require('sys');
 var http = require('http');
 
-var temp = readTemp(function(data){});
+var temp = readTemp(function(data){
+    console.log(data);
+});
 
 exports.index = function(req, res){
     res.render('temperature', { title: temp });
