@@ -9,7 +9,8 @@ var http = require('http');
 
 exports.index = function(req, res){
     readTemp(function(data){
-        res.render('temperature', { title: 'Temperature', data: temp });
+        obj = JSON.parse(data);
+        res.render('temperature', { title: 'Temperature', temp:obj.temp });
     });
 };
 
