@@ -9,7 +9,7 @@ var http = require('http');
 
 exports.index = function(req, res){
     readTemp(function(data){
-        res.render('temperature', { title: 'Temperature', temp:data.temp });
+        res.render('temperature', { title: 'Temperature', temp: data });
     });
 };
 
@@ -42,6 +42,22 @@ function readTemp(callback){
         console.log(data);
         // Execute call back with data
         callback(data);
+    });
+}
+// Create a wrapper function which we'll use specifically for logging
+function logTemp(interval){
+    // Call the readTemp function with the insertTemp function as output to get initial reading
+    readTemp(insertTemp);
+    // Set the repeat interval (milliseconds). Third argument is passed as callback function to first (i.e. readTemp(insertTemp)).
+    setInterval(readTemp, interval, insertTemp);
+}
+
+// Write a single temperature record in JSON format to database table.
+function insertTemp(data){
+    // data is a javascript object
+    db.insert(data, function(err, body) {
+        if (!err)
+            console.log(body);
     });
 }
 // server.js - NodeJS server for the PiThermServer project.

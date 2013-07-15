@@ -52,53 +52,7 @@ app.configure('development', function(){
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
-// Read current temperature from sensor
-function readTemp(callback){
-    fs.readFile('/sys/bus/w1/devices/28-000004a82865/w1_slave', function(err, buffer)
-    {
-        if (err){
-            console.error(err);
-            process.exit(1);
-        }
 
-        // Read data from file (using fast node ASCII encoding).
-        var rawdata = buffer.toString('ascii').split(" "); // Split by space
-
-        // Extract temperature from string and divide by 1000 to give celsius
-        var temp  = parseFloat(rawdata[rawdata.length-1].split("=")[1])/1000.0;
-
-        // Round to one decimal place
-        temp = Math.round(temp * 10) / 10;
-
-        var data = {record:[{time: Date.now(), temp: temp}]};
-
-        // Add date/time to temperature
-        //var data = {
-        //    temperature_record:[{
-        //       unix_time: Date.now(),
-        //        celsius: temp
-        //    }]};
-        console.log(data);
-        // Execute call back with data
-        callback(data);
-    });
-}
-// Create a wrapper function which we'll use specifically for logging
-function logTemp(interval){
-    // Call the readTemp function with the insertTemp function as output to get initial reading
-    readTemp(insertTemp);
-    // Set the repeat interval (milliseconds). Third argument is passed as callback function to first (i.e. readTemp(insertTemp)).
-    setInterval(readTemp, interval, insertTemp);
-}
-
-// Write a single temperature record in JSON format to database table.
-function insertTemp(data){
-    // data is a javascript object
-    db.insert(data, function(err, body) {
-        if (!err)
-            console.log(body);
-    });
-}
 // setup routes
 app.get('/', routes.index);
 app.get('/test', routes.test);
@@ -111,7 +65,7 @@ app.get('/database', database.index);
 app.get('/temp', temperature.index);
 
 var msecs = 5 * 1000; // log interval duration in milliseconds
-logTemp(msecs);
+temperature.logTemp(msecs);
 
 var spdyserver = spdy.createServer(options, app);
 spdyserver.listen(3000, "::");
