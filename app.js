@@ -62,13 +62,15 @@ function readTemp(callback){
         }
 
         // Read data from file (using fast node ASCII encoding).
-        var data = buffer.toString('ascii').split(" "); // Split by space
+        var rawdata = buffer.toString('ascii').split(" "); // Split by space
 
         // Extract temperature from string and divide by 1000 to give celsius
-        var temp  = parseFloat(data[data.length-1].split("=")[1])/1000.0;
+        var temp  = parseFloat(rawdata[rawdata.length-1].split("=")[1])/1000.0;
 
         // Round to one decimal place
         temp = Math.round(temp * 10) / 10;
+
+        var data = {record:[{time: Date.now(), temp: temp}]};
 
         // Add date/time to temperature
         //var data = {
@@ -76,12 +78,11 @@ function readTemp(callback){
         //       unix_time: Date.now(),
         //        celsius: temp
         //    }]};
-        console.log(String(temp));
+        console.log(data);
         // Execute call back with data
-        callback(String(temp));
+        callback(data);
     });
 }
-
 // Create a wrapper function which we'll use specifically for logging
 function logTemp(interval){
     // Call the readTemp function with the insertTemp function as output to get initial reading
