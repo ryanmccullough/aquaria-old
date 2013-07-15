@@ -2,9 +2,10 @@ var fs = require('fs');
 var sys = require('sys');
 var http = require('http');
 
-var temp = readTemp(function(data){
-    console.log(data);
-});
+//testing to see if temp can be read
+//var temp = readTemp(function(data){
+//    console.log(data);
+//});
 
 exports.index = function(req, res){
     res.render('temperature', { title: readTemp(function(data){
@@ -37,7 +38,7 @@ function readTemp(callback){
         //    }]};
 
         // Execute call back with data
-        callback(temp);
+        callback(String(temp));
     });
 }
 // server.js - NodeJS server for the PiThermServer project.
