@@ -7,7 +7,9 @@ var temp = readTemp(function(data){
 });
 
 exports.index = function(req, res){
-    res.render('temperature', { title: readTemp(data) });
+    res.render('temperature', { title: readTemp(function(data){
+     console.log(data);
+    }) });
 };
 // Read current temperature from sensor
 function readTemp(callback){
