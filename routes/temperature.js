@@ -5,7 +5,7 @@ var http = require('http');
 var temp = readTemp(function(data){});
 
 exports.index = function(req, res){
-    res.render('temperature', { temperature: temp });
+    res.render('temperature', { title: temp });
 };
 // Read current temperature from sensor
 function readTemp(callback){
