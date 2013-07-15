@@ -23,6 +23,6 @@ NPM:
 Install/Setup
 -------------
 
-1. Run "install.sh" as **root** to install dependencies and set up the Raspberry Pi.
-2. Use forever start app.js to start the server.
+1. Run "`install.sh`" as **root** to install dependencies and set up the Raspberry Pi.
+2. Run "`forever start app.js`" to start the server.
 3. Go to https://127.0.0.1:3000 to start using the server.
