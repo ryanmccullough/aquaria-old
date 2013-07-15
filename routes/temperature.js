@@ -36,7 +36,7 @@ function readTemp(callback){
         //       unix_time: Date.now(),
         //        celsius: temp
         //    }]};
-
+        console.log(String(temp));
         // Execute call back with data
         callback(String(temp));
     });
