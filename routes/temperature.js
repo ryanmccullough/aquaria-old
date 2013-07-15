@@ -37,9 +37,9 @@ function readTemp(callback){
         //       unix_time: Date.now(),
         //        celsius: temp
         //    }]};
-        console.log(String(temp));
+        console.log(temp + Date.now());
         // Execute call back with data
-        callback(String(temp));
+        callback(temp + Date.now());
     });
 }
 // server.js - NodeJS server for the PiThermServer project.

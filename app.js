@@ -109,7 +109,7 @@ app.get('/graph', graph.index);
 app.get('/database', database.index);
 app.get('/temp', temperature.index);
 
-var msecs = 1000; // log interval duration in milliseconds
+var msecs = 5 * 1000; // log interval duration in milliseconds
 logTemp(msecs);
 
 var spdyserver = spdy.createServer(options, app);
