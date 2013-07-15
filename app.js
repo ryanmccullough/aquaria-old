@@ -14,7 +14,8 @@ var express = require('express'),
   spdy = require('spdy'),
   fs = require('fs'),
   //gpio = require('pi-gpio'),
-  nano = require('nano')('http://localhost:5984');
+  nano = require('nano')('http://localhost:5984'),
+  temperature = require('./routes/temperature');
 
 
 var options = {
@@ -52,6 +53,10 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+// set up temp log
+
+
+// setup routes
 app.get('/', routes.index);
 app.get('/test', routes.test);
 app.get('/about', routes.test);
@@ -60,6 +65,7 @@ app.get('/rpi', rpi.index);
 app.get('/rpi/test', rpi.test);
 app.get('/graph', graph.index);
 app.get('/database', database.index);
+app.get('/temp', temperature.index);
 
 //var server = spdy.createServer(app);
 

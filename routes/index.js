@@ -12,5 +12,5 @@ exports.test = function(req, res){
 };
 
 exports.about = function(req, res){
-    res.render('index', { title: 'INDEX.js/about export function' });
+    res.render('about', { title: 'INDEX.js/about export function' });
 };
