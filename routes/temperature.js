@@ -7,10 +7,10 @@ var http = require('http');
 //    console.log(data);
 //});
 
-exports.index = function(req, temp, res){
-    res.render('temperature', { title: temp });
+exports.index = function(req, res){
+    res.render('temperature', { title: 'Temperature', temp:readTemp(function(data){}) });
 };
-/*
+
 // Read current temperature from sensor
 function readTemp(callback){
     fs.readFile('/sys/bus/w1/devices/28-000004a82865/w1_slave', function(err, buffer)
