@@ -8,7 +8,8 @@ var http = require('http');
 //});
 
 exports.index = function(req, res){
-    res.render('temperature', { title: 'Temperature', temp:readTemp(function(data){}) });
+    var temp = readTemp(function(data){});
+    res.render('temperature', { title: 'Temperature', temp:temp });
 };
 
 // Read current temperature from sensor
