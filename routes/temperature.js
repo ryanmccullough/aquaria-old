@@ -10,9 +10,13 @@ var db = nano.db.use('datalog');
 //    console.log(data);
 //});
 
+function getRandom(min, max){
+    return (Math.floor(Math.random() * (max - min + 1)) + min);
+}
+
 exports.index = function(req, res){
     readTemp(function(data){
-        var temp = data.record[0].temp;
+        var temp = JSON.stringify(data);
         res.render('temperature', { title: 'Temperature', temp: temp });
     });
 };
@@ -24,7 +28,7 @@ function readTemp(callback){
         if (err){
             //console.error(err);
             //process.exit(1);
-            buffer = '94 01 4b 46 7f ff 0c 10 26 : crc=26 YES\n94 01 4b 46 7f ff 0c 10 26 t=25250';
+            buffer = '94 01 4b 46 7f ff 0c 10 26 : crc=26 YES\n94 01 4b 46 7f ff 0c 10 26 t='+getRandom(23000, 29000).toString();
         }
 
         // Read data from file (using fast node ASCII encoding).
@@ -45,7 +49,7 @@ function readTemp(callback){
         //       unix_time: Date.now(),
         //        celsius: temp
         //    }]};
-        //console.log(data);
+        console.log(data);
         // Execute call back with data
         callback(data);
     });
@@ -63,14 +67,15 @@ function insertTemp(data){
     // data is a javascript object
     db.insert(data, function(err, body) {
         if (!err)
-            console.log(body);
+            //console.log(body.rows);
+        ;
     });
 }
 
 exports.doselectTemp = function selectTemp(callback) {
 //      var current_temp = db.get('temperature', function(err, body){
-    db.view('test', 'test', function (err, body) {
-        callback(body.rows);
+    db.view('Testing', 'all', function (err, body) {
+        callback(body.rows.map(function(x) {return x.value; }));
     });
 };
 //    callback(current_temp);

@@ -60,7 +60,9 @@ app.get('/rpi', rpi.index);
 app.get('/rpi/test', rpi.test);
 app.get('/graph', graph.index);
 app.get('/graph/test', graph.test);
-app.get('/database', database.index);
+app.get('/graph/getJSON', graph.getJSON);
+//app.get('/db/clear', database.clear);
+//app.get('/database', database.index);
 app.get('/temp', temperature.index);
 
 var msecs = 5 * 1000; // log interval duration in milliseconds

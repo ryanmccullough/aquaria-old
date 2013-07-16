@@ -9,9 +9,15 @@ exports.index = function(req, res){
 
 exports.test = function(req, res){
     temperature.doselectTemp(function(data){
-        var data = JSON.stringify(data);
-        res.render('graphtest', { title: 'Graph TESTING COUCHDB', tempdata: data });
+        //var data = JSON.stringify(data);
+        res.render('graph/graphtest', { title: 'Graph TESTING COUCHDB', tempdata: data });
     });
+};
+
+exports.getJSON = function(req, res){
+    temperature.doselectTemp(function(data){
+        res.jsonp(data);
+    })
 };
 /*
 exports.test = function(req, res){
