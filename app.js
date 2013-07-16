@@ -64,6 +64,7 @@ app.get('/temp', temperature.index);
 
 var msecs = 5 * 1000; // log interval duration in milliseconds
 temperature.dologTemp(msecs);
+console.log('Logging temperature every '+msecs/1000+' seconds');
 
 var spdyserver = spdy.createServer(options, app);
 spdyserver.listen(3000, "::");
