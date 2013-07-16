@@ -22,7 +22,7 @@ def monitor_():
 	datenow = datetime.date.today()
 
 	#Write sensor data to csv file.
-	dcontrol.datawrite(mon_temp_c, mon_pH, mon_DO, datenow, timenow)
+	dcontrol.datawrite(mon_temp_c, mon_pH, mon_DO, datenow, timenow, str(datenow) + " " + str(timenow))
 
 	#Blink LED based on temp.
 	if mon_temp_c < 24:
