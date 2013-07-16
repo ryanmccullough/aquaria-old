@@ -65,7 +65,7 @@ app.get('/database', database.index);
 app.get('/temp', temperature.index);
 
 var msecs = 5 * 1000; // log interval duration in milliseconds
-temperature.logTemp(msecs);
+temperature.dologTemp(msecs);
 
 var spdyserver = spdy.createServer(options, app);
 spdyserver.listen(3000, "::");

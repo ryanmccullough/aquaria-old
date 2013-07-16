@@ -45,12 +45,12 @@ function readTemp(callback){
     });
 }
 // Create a wrapper function which we'll use specifically for logging
-function logTemp(interval){
+exports.dologTemp = function logTemp(interval){
     // Call the readTemp function with the insertTemp function as output to get initial reading
     readTemp(insertTemp);
     // Set the repeat interval (milliseconds). Third argument is passed as callback function to first (i.e. readTemp(insertTemp)).
     setInterval(readTemp, interval, insertTemp);
-}
+};
 
 // Write a single temperature record in JSON format to database table.
 function insertTemp(data){
