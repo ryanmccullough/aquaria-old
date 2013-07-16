@@ -3,7 +3,7 @@ extends layout
 append head
   script(src='/bootstrap/js/d3.v3.min.js')
   style.
-    body {
+    svg {
       font: 10px sans-serif;
     }
 
@@ -11,7 +11,7 @@ append head
     .axis line {
       fill: none;
       stroke: #000;
-      shape-rendering: ;
+      shape-rendering: crispEdges;
     }
 
     .x.axis path {
@@ -31,8 +31,7 @@ block content
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
-    var parseDate = d3.time.format("%Y-%m-%d %H:%M:%S").parse;
-    var parseTime = d3.time.format("%H:%M:%S").parse;
+    var parseDate = d3.time.format("%m/%d/%Y %H:%M:%S").parse;
 
     var x = d3.time.scale()
         .range([0, width]);
@@ -50,7 +49,7 @@ block content
 
     var line = d3.svg.line()
         .x(function(d) { return x(d.datetime); })
-        .y(function(d) { return y(d.close); });
+        .y(function(d) { return y(d.temp); });
 
     var svg = d3.select("body").append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -58,16 +57,15 @@ block content
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.csv("/python/data.csv", function(error, data) {
-        data.sort(function(a,b) {return d3.ascending(a.datetime, b.datetime);});
+    d3.csv("/python/sample.data.csv", function(error, data) {
+        //data.sort(function(a,b) {return d3.ascending(a.datetime, b.datetime);});
         data.forEach(function(d) {
         d.datetime = parseDate(d.datetime);
-        d.close = +d.close;
-        d.time = parseTime(d.time);
+        d.temp = +d.temp;
       });
 
       x.domain(d3.extent(data, function(d) { return d.datetime; }));
-      y.domain(d3.extent(data, function(d) { return d.close; }));
+      y.domain(d3.extent(data, function(d) { return d.temp; }));
 
       svg.append("g")
           .attr("class", "x axis")

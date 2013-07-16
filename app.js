@@ -2,30 +2,31 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , routes = require('./routes')
-  , user = require('./routes/user')
-  , rpi = require('./routes/rpi')
-  , graph = require('./routes/graph')
-  , http = require('http')
-  , https = require('https')
-  , path = require('path')
-  , spdy = require('spdy')
-  , fs = require('fs')
-  , nano = require('nano')('http://localhost:5984');
+var express = require('express'),
+  routes = require('./routes'),
+  user = require('./routes/user'),
+  rpi = require('./routes/rpi'),
+  graph = require('./routes/graph'),
+  database = require('./routes/database'),
+  http = require('http'),
+  https = require('https'),
+  path = require('path'),
+  spdy = require('spdy'),
+  fs = require('fs'),
+  //gpio = require('pi-gpio'),
+  nano = require('nano')('http://localhost:5984'),
+  temperature = require('./routes/temperature');
 
 
 var options = {
-  key: fs.readFileSync(__dirname + '/keys/privatekey.pem'),
-  cert: fs.readFileSync(__dirname + '/keys/ca.pem'),
+  key: fs.readFileSync(__dirname + '/keys/sample.privatekey.pem'),
+  cert: fs.readFileSync(__dirname + '/keys/sample.ca.pem')
 //ca: fs.readFileSync(__dirname + '/keys/cert.pem'),
 //pfx: fs.readFileSync(__dirname + '/keys/test.pfx'),
 
   // SPDY-specific options
-  windowSize: 1024 // Server's window size
+  //windowSize: 1024 // Server's window size
 };
-
-var db = nano.db.use('test');
 
 var app = express();
 
@@ -50,26 +51,22 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+// setup routes
 app.get('/', routes.index);
 app.get('/test', routes.test);
+app.get('/about', routes.about);
 app.get('/users', user.list);
 app.get('/rpi', rpi.index);
 app.get('/rpi/test', rpi.test);
 app.get('/graph', graph.index);
-//app.get('/testing', test.test);
-//Testing out the template and MVC system.
-app.get('/testing', function(req, res){
-  res.render('index.jade', { title: 'Testing' });
-});
-//About page FIND OUT HOW TO SERVE STATIcS
-app.get('/about', function(req, res){
-  res.render('about.jade', { title: 'About' });
-});
+app.get('/graph/test', graph.test);
+app.get('/database', database.index);
+app.get('/temp', temperature.index);
 
-//var server = spdy.createServer(app);
-
-//server.listen('port');
+var msecs = 5 * 1000; // log interval duration in milliseconds
+temperature.dologTemp(msecs);
+console.log('Logging temperature every '+msecs/1000+' seconds');
 
 var spdyserver = spdy.createServer(options, app);
-spdyserver.listen(3000);
+spdyserver.listen(3000, "::");
 console.log('Listening on port 3000');
