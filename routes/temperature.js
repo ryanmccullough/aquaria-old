@@ -1,6 +1,9 @@
 var fs = require('fs');
 var sys = require('sys');
 var http = require('http');
+var nano = require('nano');
+
+var db = nano.db.use('datalog');
 
 //testing to see if temp can be read
 //var temp = readTemp(function(data){
