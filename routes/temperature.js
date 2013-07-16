@@ -12,7 +12,7 @@ var db = nano.db.use('datalog');
 
 exports.index = function(req, res){
     readTemp(function(data){
-        res.render('temperature', { title: 'Temperature', temp: data.temp });
+        res.render('temperature', { title: 'Temperature', temp: JSON.stringify(data) });
     });
 };
 
