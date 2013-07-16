@@ -1,7 +1,7 @@
 var fs = require('fs');
 var sys = require('sys');
 var http = require('http');
-var nano = require('nano');
+var nano = require('nano')('http://localhost:5984');
 
 var db = nano.db.use('datalog');
 
