@@ -22,8 +22,9 @@ function readTemp(callback){
     fs.readFile('/sys/bus/w1/devices/28-000004a82865/w1_slave', function(err, buffer)
     {
         if (err){
-            console.error(err);
-            process.exit(1);
+            //console.error(err);
+            //process.exit(1);
+            buffer = '94 01 4b 46 7f ff 0c 10 26 : crc=26 YES\n94 01 4b 46 7f ff 0c 10 26 t=25250';
         }
 
         // Read data from file (using fast node ASCII encoding).
@@ -35,7 +36,8 @@ function readTemp(callback){
         // Round to one decimal place
         temp = Math.round(temp * 10) / 10;
 
-        var data = {record:[{time: Date.now(), temp: temp}]};
+        var data = {type: 'record', time: Date.now(), temperature: temp};
+        //{record:[{time: Date.now(), temp: temp}]};
 
         // Add date/time to temperature
         //var data = {
@@ -64,6 +66,15 @@ function insertTemp(data){
             console.log(body);
     });
 }
+
+exports.doselectTemp = function selectTemp(callback) {
+//      var current_temp = db.get('temperature', function(err, body){
+    db.view('test', 'test', function (err, body) {
+        callback(body.rows);
+    });
+};
+//    callback(current_temp);
+
 // server.js - NodeJS server for the PiThermServer project.
 
 /*

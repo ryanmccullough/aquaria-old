@@ -59,6 +59,7 @@ app.get('/users', user.list);
 app.get('/rpi', rpi.index);
 app.get('/rpi/test', rpi.test);
 app.get('/graph', graph.index);
+app.get('/graph/test', graph.test);
 app.get('/database', database.index);
 app.get('/temp', temperature.index);
 
