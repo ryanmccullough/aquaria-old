@@ -28,6 +28,8 @@ var options = {
   //windowSize: 1024 // Server's window size
 };
 
+var app = express();
+
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
