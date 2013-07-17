@@ -66,15 +66,18 @@ exports.dologTemp = function logTemp(interval){
 function insertTemp(data){
     // data is a javascript object
     db.insert(data, function(err, body) {
-        if (!err)
-            //console.log(body.rows);
-        ;
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(body.rows);
+        }
     });
 }
 
 exports.doselectTemp = function selectTemp(callback) {
 //      var current_temp = db.get('temperature', function(err, body){
     db.view('Testing', 'all', function (err, body) {
+        //callback(body.rows);
         callback(body.rows.map(function(x) {return x.value; }));
     });
 };
